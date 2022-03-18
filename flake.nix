@@ -59,17 +59,16 @@
                       });
                     }
                   )
-                // nixpkgs.lib.genAttrs
-                  (map (a: a + "-dry-run") validMachines)
-                  (x:
-                    {
+                // nixpkgs.lib.listToAttrs
+                  (map
+                    (a: nixpkgs.lib.nameValuePair (a + "-dry-run") ({
                       type = "app";
                       program = toString (mkDeployScript {
-                        machine = x;
+                        machine = a;
                         dryRun = true;
                       });
-                    }
-                  )
+                    }))
+                    validMachines)
               );
           };
       };
