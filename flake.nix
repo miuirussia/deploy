@@ -43,7 +43,7 @@
                   ( set -x; NIX_SSHOPTS="-t" ${final.nixos-rebuild}/bin/nixos-rebuild ${switch} --flake ${flake}#${machine} --target-host ${user}@${host} --use-remote-sudo )
                 '');
               in
-              final.writeScript "deploy-${machine}.sh" script;
+              final.writeShellScript "deploy-${machine}.sh" script;
           in
           {
             deploy =
